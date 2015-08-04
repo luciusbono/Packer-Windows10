@@ -1,0 +1,5 @@
+*.iso
+*.box
+packerbuild.log
+windowsbuild.zip
+packer_cache/

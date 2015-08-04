@@ -1,0 +1,49 @@
+{
+  "builders": [{    
+    "type": "vmware-iso",
+    "communicator": "winrm",
+    "disk_size": 61440,
+    "floppy_files": [
+      "Autounattend.xml",
+      "update-windows.ps1",
+      "configure-winrm.ps1"
+    ],
+    "guest_os_type": "windows9-64",
+    "headless": true,
+    "iso_url": "/Users/Lucius/ISOs/OSes/Windows10ENT/10240.16384.150709-1700.TH1_CLIENTENTERPRISEEVAL_OEMRET_X64FRE_EN-US.ISO",
+    "iso_checksum_type": "md5",
+    "iso_checksum": "6cd2f47f2c32faa7be85f1dc81af3220",
+    "winrm_username": "vagrant",
+    "winrm_password": "vagrant",
+    "winrm_timeout": "6h",
+    "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+    "skip_compaction": false,
+    "tools_upload_flavor": "windows",
+    "tools_upload_path": "c:/Windows/Temp/windows.iso",
+    "vmx_data": {
+      "gui.fitguestusingnativedisplayresolution": "FALSE",
+      "memsize": "2048",
+      "numvcpus": "2",
+      "virtualHW.version": "10",
+      "scsi0.virtualDev": "lsisas1068"
+    }
+  }],
+  "provisioners": [
+  {
+    "type": "powershell",
+    "scripts": [
+      "configure-private-network.ps1",
+      "enable-rdp.ps1",
+      "install-vmware-tools.ps1",
+      "enable-uac.ps1",
+      "disable-hibernate.ps1"
+]
+  }],
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "keep_input_artifact": false,
+      "output": "{{.Provider}}_windows-10.box"
+    }
+  ]
+}
