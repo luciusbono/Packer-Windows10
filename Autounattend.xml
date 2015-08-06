@@ -91,26 +91,41 @@
                 <Username>vagrant</Username>
             </AutoLogon>
             <OOBE>
-                <ProtectYourPC>3</ProtectYourPC>
+                <ProtectYourPC>1</ProtectYourPC>
             </OOBE>
             <FirstLogonCommands>
-                <SynchronousCommand wcm:action="add">
+		    <!--  <SynchronousCommand wcm:action="add">
                     <CommandLine>powershell -Command &quot;Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force&quot;</CommandLine>
                     <Description>Set Powershell Execution Policy</Description>
                     <Order>1</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
+                    <CommandLine>powershell -NoLogo -ExecutionPolicy RemoteSigned -File a:\update-windows.ps1</CommandLine>
+                    <Description>Update Windows, and when finished, run configure-winrm.ps1 to turn WinRM on so this party can get started</Description>
+                    <Order>4</Order>
+                    <RequiresUserInput>true</RequiresUserInput>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
                     <CommandLine>cmd.exe /c wmic useraccount where &quot;name=&apos;vagrant&apos;&quot; set PasswordExpires=FALSE</CommandLine>
                     <Description>Disable password expiration for vagrant user</Description>
+                    <Order>5</Order>
+		</SynchronousCommand> -->
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>powershell -NoLogo -ExecutionPolicy Bypass -File a:\configure-winrm.ps1</CommandLine>
+                    <Description>Enable WinRM</Description>
+                    <Order>1</Order>
+		    </SynchronousCommand><!--  
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>powershell -NoLogo -ExecutionPolicy RemoteSigned -File a:\configure-private-network.ps1</CommandLine>
+                    <Description>Set network type to Private</Description>
                     <Order>2</Order>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>powershell -NoLogo -ExecutionPolicy RemoteSigned -File a:\update-windows.ps1</CommandLine>
-                    <Description>Update Windows, and when finished, run configure-winrm.ps1 to turn WinRM on so this party can get started</Description>
+                    <CommandLine>powershell -NoLogo -ExecutionPolicy RemoteSigned -File a:\disable-hibernate.ps1</CommandLine>
+                    <Description>Disable Hibernation</Description>
                     <Order>3</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>
+		</SynchronousCommand> -->
             </FirstLogonCommands>
         </component>
     </settings>

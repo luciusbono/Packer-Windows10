@@ -1,6 +1,3 @@
-# windows powershell enable remote desktop script
-$host.ui.RawUI.WindowTitle = "Enable Remote Desktop"
-
 #enable rdp
 Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Terminal Server" -Name fDenyTSConnections -Type DWord -Value 0
  
