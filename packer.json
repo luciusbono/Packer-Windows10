@@ -31,12 +31,12 @@
   "provisioners": [
   {
     "type": "powershell",
+    "execute_command": "powershell -ExecutionPolicy Bypass -File {{.Path}} }; exit $LastExitCode",
     "scripts": [
-      "configure-private-network.ps1",
-      "enable-rdp.ps1",
       "install-vmware-tools.ps1",
-      "enable-uac.ps1",
-      "disable-hibernate.ps1"
+      "enable-rdp.ps1",
+      "disable-hibernate.ps1",
+      "enable-uac.ps1"
 ]
   }],
   "post-processors": [

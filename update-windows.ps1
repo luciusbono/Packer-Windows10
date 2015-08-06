@@ -30,10 +30,8 @@ function Check-ContinueRestartOrEnd() {
                 Install-WindowsUpdates
             } elseif ($script:Cycles -gt $global:MaxCycles) {
                 LogWrite "Exceeded Cycle Count - Stopping"
-                Invoke-Expression "a:\configure-winrm.ps1"
             } else {
                 LogWrite "Done Installing Windows Updates"
-                Invoke-Expression "a:\configure-winrm.ps1"
             }
         }
         1 {
@@ -125,7 +123,6 @@ function Install-WindowsUpdates() {
         LogWrite 'No updates available to install...'
         $global:MoreUpdates=0
         $global:RestartRequired=0
-        Invoke-Expression "a:\configure-winrm.ps1"
         break
     }
 
