@@ -1,5 +1,7 @@
+
 {
-  "builders": [{    
+  "builders": [
+  {    
     "type": "vmware-iso",
     "communicator": "winrm",
     "disk_size": 61440,
@@ -12,7 +14,7 @@
     "headless": true,
     "iso_url": "/Users/Lucius/ISOs/OSes/Windows10ENT/10240.16384.150709-1700.TH1_CLIENTENTERPRISEEVAL_OEMRET_X64FRE_EN-US.ISO",
     "iso_checksum_type": "md5",
-    "iso_checksum": "6cd2f47f2c32faa7be85f1dc81af3220",
+    "iso_checksum": "6cd2f47f2c32faa7be85f1dc81af3220",    
     "winrm_username": "vagrant",
     "winrm_password": "vagrant",
     "winrm_timeout": "6h",
@@ -26,24 +28,62 @@
       "numvcpus": "2",
       "virtualHW.version": "10",
       "scsi0.virtualDev": "lsisas1068"
-    }
-  }],
+      }
+    },
+  {    
+    "type": "virtualbox-iso",
+    "communicator": "winrm",
+    "disk_size": 61440,
+    "floppy_files": [
+      "Autounattend.xml",
+      "update-windows.ps1",
+      "configure-winrm.ps1"
+    ],
+    "guest_os_type": "Windows10_64",
+    "headless": true,
+    "iso_url": "/Users/Lucius/ISOs/OSes/Windows10ENT/10240.16384.150709-1700.TH1_CLIENTENTERPRISEEVAL_OEMRET_X64FRE_EN-US.ISO",
+    "iso_checksum_type": "md5",
+    "iso_checksum": "6cd2f47f2c32faa7be85f1dc81af3220",    
+     "winrm_username": "vagrant",
+    "winrm_password": "vagrant",
+    "winrm_timeout": "6h",
+    "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+    "guest_additions_mode": "upload",
+    "guest_additions_path": "c:/Windows/Temp/windows.iso",
+    "vboxmanage": [
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "2048"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--cpus",
+          "2"
+        ]
+      ]
+    } 
+  ],
   "provisioners": [
   {
     "type": "powershell",
-    "execute_command": "powershell -ExecutionPolicy Bypass -File {{.Path}} }; exit $LastExitCode",
+    "execute_command": "powershell -ExecutionPolicy Bypass \"& { {{.Vars}}{{.Path}}; exit $LastExitCode}\"",
     "scripts": [
-      "install-vmware-tools.ps1",
+      "install-guest-tools.ps1",
       "enable-rdp.ps1",
       "disable-hibernate.ps1",
+      "disable-autologin.ps1",
       "enable-uac.ps1"
-]
-  }],
-  "post-processors": [
+    ]}
+  ],  "post-processors": [
     {
       "type": "vagrant",
       "keep_input_artifact": false,
-      "output": "{{.Provider}}_windows-10.box"
+      "output": "{{.Provider}}_windows-10.box",
+      "vagrantfile_template": "vagrantfile.template"
     }
   ]
 }
+
