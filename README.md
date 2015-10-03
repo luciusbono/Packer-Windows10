@@ -37,7 +37,7 @@ This guide will assume you zero knowledge of any or all of these systems.
 5. Download the [Windows 10 x64 Enterprise Trial](https://www.microsoft.com/en-us/evalcenter/evaluate-windows-10-enterprise), save the ISO someplace you'll remember.
 6. Make a working directory somewhere (OSX suggestion `mkdir ~/Packer_Projects/`) and `cd` to that directory (e.g. `cd ~/Packer_Projects/`).
 7. Clone this repo to your working directory: `git clone https://github.com/luciusbono/Packer-Windows10` (if you don't have `git` installed: [here are instructions](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
-8. Determine the **MD5 hash** of your iso: `md5 [path to iso]`
+8. Determine the **MD5 hash** of your iso: `md5 [path to iso]` in OSX `FCIV -md5 [path to iso]` in Windows -- Linux people are smarter than me and likely can just calculate the md5 hash through ether-magic. 
 9. For **Virtualbox** run `packer build -only=virtualbox-iso -var 'iso_path=[path to iso]' -var 'iso_md5=[md5 of iso]' packer.json` for **VMWare Fusion/Workstation** run `packer build -only=vmware-iso -var 'iso_path=[path to iso]' -var 'iso_md5=[md5 of iso]' packer.json`
 10. Wait a loooooooooooonnnnngggg time (an unupdated base ISO may take a couple of hours to pack).
 11. Run `vagrant box add --name [vagrant box name] [name of .box file]`. The name can be anything you want. For example, this command is valid for Virtualbox: `vagrant box add --name windows10 virtualbox-iso_windows-10.box`
@@ -73,7 +73,7 @@ Since there are two Builders, you also likely want to specify one or the other.
 
 Valid options are `virtualbox-iso` or `vmware-iso`. 
 
-You'll also need to set two variables: `iso_md5` and `iso_path`, which are the path and the MD5 hash of the Windows 8.1 Enterprise trial ISO. 
+The other two variables, `iso_md5` and `iso_path`, are the path and the MD5 hash of the Windows 10 Enterprise trial ISO. 
 
 
 ## Other things to note
