@@ -76,7 +76,10 @@
       "disable-hibernate.ps1",
       "disable-autologin.ps1",
       "enable-uac.ps1"
-    ]}
+    ]},
+   {
+      "type": "windows-restart"
+   }
   ],  "post-processors": [
     {
       "type": "vagrant",
