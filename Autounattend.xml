@@ -91,7 +91,7 @@
                 <Username>vagrant</Username>
             </AutoLogon>
             <OOBE>
-                <ProtectYourPC>3</ProtectYourPC>
+                <ProtectYourPC>1</ProtectYourPC>
             </OOBE>
             <FirstLogonCommands>
                 <SynchronousCommand wcm:action="add">
