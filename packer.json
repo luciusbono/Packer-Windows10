@@ -29,7 +29,7 @@
     "vmx_data": {
       "gui.fitguestusingnativedisplayresolution": "FALSE",
       "memsize": "1024",
-      "numvcpus": "1",
+      "numvcpus": "2",
       "virtualHW.version": "10",
       "scsi0.virtualDev": "lsisas1068"
       }
@@ -65,7 +65,7 @@
           "modifyvm",
           "{{.Name}}",
           "--cpus",
-          "1"
+          "2"
         ]
       ]
     } 
