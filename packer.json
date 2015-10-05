@@ -1,5 +1,9 @@
-
 {
+  "variables": {
+    "iso_path": "",
+    "iso_md5": ""
+  },
+
   "builders": [
   {    
     "type": "vmware-iso",
@@ -12,9 +16,9 @@
     ],
     "guest_os_type": "windows9-64",
     "headless": true,
-    "iso_url": "/Users/Lucius/ISOs/OSes/Windows10ENT/10240.16384.150709-1700.TH1_CLIENTENTERPRISEEVAL_OEMRET_X64FRE_EN-US.ISO",
+    "iso_url": "{{user `iso_path`}}",
     "iso_checksum_type": "md5",
-    "iso_checksum": "6cd2f47f2c32faa7be85f1dc81af3220",    
+    "iso_checksum": "{{user `iso_md5`}}",    
     "winrm_username": "vagrant",
     "winrm_password": "vagrant",
     "winrm_timeout": "6h",
@@ -24,8 +28,8 @@
     "tools_upload_path": "c:/Windows/Temp/windows.iso",
     "vmx_data": {
       "gui.fitguestusingnativedisplayresolution": "FALSE",
-      "memsize": "2048",
-      "numvcpus": "2",
+      "memsize": "1024",
+      "numvcpus": "1",
       "virtualHW.version": "10",
       "scsi0.virtualDev": "lsisas1068"
       }
@@ -41,9 +45,9 @@
     ],
     "guest_os_type": "Windows10_64",
     "headless": true,
-    "iso_url": "/Users/Lucius/ISOs/OSes/Windows10ENT/10240.16384.150709-1700.TH1_CLIENTENTERPRISEEVAL_OEMRET_X64FRE_EN-US.ISO",
+    "iso_url": "{{user `iso_path`}}",
     "iso_checksum_type": "md5",
-    "iso_checksum": "6cd2f47f2c32faa7be85f1dc81af3220",    
+    "iso_checksum": "{{user `iso_md5`}}",    
      "winrm_username": "vagrant",
     "winrm_password": "vagrant",
     "winrm_timeout": "6h",
@@ -55,13 +59,13 @@
           "modifyvm",
           "{{.Name}}",
           "--memory",
-          "2048"
+          "1024"
         ],
         [
           "modifyvm",
           "{{.Name}}",
           "--cpus",
-          "2"
+          "1"
         ]
       ]
     } 

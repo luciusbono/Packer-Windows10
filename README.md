@@ -83,3 +83,10 @@ The update grabbing script is a bit of a grey-box, as I basically just hijacked 
 If, for some reason, you have VMWare Fusion and the VMMware Vagrant plugin, but want to run this project in Virtualbox, you need to specify the provider in your `vagrant up` statement like so: `vagrant up --provider=virtualbox`
 
 Almost nobody will fall into the camp, but it's worth mentioning. Have fun!
+
+## Troubleshooting
+
+### vagrant rdp prompts for login credentials but vagrant/vagrant does not work
+I ran into this issue on a Windows 10 host with this project. I [submitted an issue](https://github.com/mitchellh/vagrant/issues/6358). The resolution is to choose `Use another account` and login with `.\vagrant` as the login and `vagrant` as the password. Unforuntately, it appears that one must log in with these credentials in this manner each time you `vagrant rdp` (unless that issue says otherwise...). 
+
+
