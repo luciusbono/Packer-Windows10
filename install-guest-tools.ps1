@@ -11,7 +11,7 @@ Mount-DiskImage -ImagePath $isopath
 
 function vmware {
 
-$exe = ((Get-DiskImage -ImagePath $isopath | Get-Volume).Driveletter + ':\setup64.exe')
+$exe = ((Get-DiskImage -ImagePath $isopath | Get-Volume).Driveletter + ':\setup.exe')
 $parameters = '/S /v "/qr REBOOT=R"'
 
 Start-Process $exe $parameters -Wait
