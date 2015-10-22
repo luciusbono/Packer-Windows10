@@ -3,3 +3,4 @@
 packerbuild.log
 windowsbuild.zip
 packer_cache/
+output-virtualbox-iso/
