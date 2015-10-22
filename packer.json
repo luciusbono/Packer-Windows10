@@ -66,7 +66,13 @@
           "{{.Name}}",
           "--cpus",
           "2"
-        ]
+        ],
+	[
+	  "modifyvm",
+	  "{{.Name}}",
+	  "--vram", 
+	  "32"
+	]	
       ]
     } 
   ],
@@ -81,10 +87,15 @@
       "disable-autologin.ps1",
       "enable-uac.ps1"
     ]},
-   {
-      "type": "windows-restart"
-   }
-  ],  "post-processors": [
+  {
+    "type": "windows-restart",
+    "restart_command": "powershell \"& {(Get-WmiObject win32_operatingsystem).LastBootUpTime > C:\\ProgramData\\lastboot.txt; Restart-Computer -force}\"",
+    "restart_check_command": "powershell -command \"& {if ((get-content C:\\ProgramData\\lastboot.txt) -eq (Get-WmiObject win32_operatingsystem).LastBootUpTime) {Write-Output 'Sleeping for 600 seconds to wait for reboot'; start-sleep 600} else {Write-Output 'Reboot complete'}}\""
+  }
+
+],  
+
+ "post-processors": [
     {
       "type": "vagrant",
       "keep_input_artifact": false,
