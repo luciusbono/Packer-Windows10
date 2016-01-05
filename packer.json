@@ -51,7 +51,7 @@
      "winrm_username": "vagrant",
     "winrm_password": "vagrant",
     "winrm_timeout": "6h",
-    "shutdown_command": "stop-computer -force",
+    "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
     "guest_additions_mode": "upload",
     "guest_additions_path": "c:/Windows/Temp/windows.iso",
     "vboxmanage": [
