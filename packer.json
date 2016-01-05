@@ -51,7 +51,7 @@
      "winrm_username": "vagrant",
     "winrm_password": "vagrant",
     "winrm_timeout": "6h",
-    "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+    "shutdown_command": "stop-computer -force",
     "guest_additions_mode": "upload",
     "guest_additions_path": "c:/Windows/Temp/windows.iso",
     "vboxmanage": [
@@ -85,7 +85,8 @@
       "enable-rdp.ps1",
       "disable-hibernate.ps1",
       "disable-autologin.ps1",
-      "enable-uac.ps1"
+      "enable-uac.ps1",
+      "no-expiration.ps1"
     ]},
   {
     "type": "windows-restart",
