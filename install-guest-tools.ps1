@@ -24,6 +24,10 @@ function virtualbox {
 $certdir = ((Get-DiskImage -ImagePath $isopath | Get-Volume).Driveletter + ':\cert\')
 $VBoxCertUtil = ($certdir + 'VBoxCertUtil.exe')
 
+# Added support for VirtualBox 4.4 and above by doing this silly little trick.
+# We look for the presence of VBoxCertUtil.exe and use that as the deciding factor for what method to use.
+# The better way to do this would be to parse the Virtualbox version file that Packer can upload, but this was quick.
+
 if (Test-Path ($VBoxCertUtil)) {
 	Get-ChildItem *.cer | ForEach-Object {iex "$VBoxCertUtil add-trusted-publisher" $_.Name --root $_.Name}
 }
