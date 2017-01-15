@@ -20,8 +20,18 @@ Start-Process $exe $parameters -Wait
 
 function virtualbox {
 
-$certpath = ((Get-DiskImage -ImagePath $isopath | Get-Volume).Driveletter + ':\cert\oracle-vbox.cer')
-certutil -addstore -f "TrustedPublisher" $certpath
+
+$certdir = ((Get-DiskImage -ImagePath $isopath | Get-Volume).Driveletter + ':\cert\')
+$VBoxCertUtil = ($certdir + 'VBoxCertUtil.exe')
+
+if (Test-Path ($VBoxCertUtil)) {
+	Get-ChildItem *.cer | ForEach-Object {iex "$VBoxCertUtil add-trusted-publisher" $_.Name --root $_.Name}
+}
+
+else {
+	$certpath = ($certpath + 'oracle-vbox.cer')
+	certutil -addstore -f "TrustedPublisher" $certpath
+}
 
 $exe = ((Get-DiskImage -ImagePath $isopath | Get-Volume).Driveletter + ':\VBoxWindowsAdditions.exe')
 $parameters = '/S'

@@ -1,4 +1,5 @@
 # Packer-Windows10
+
 A Packer build to make a pretty vanilla Windows 10 x64 box for use with VMWare Desktop or Virtualbox.
 
 This project is just a clone of my [other Windows Packer project](https://github.com/luciusbono/Packer-Windows81) with some very minor changes. Eventually the two projects will merge and form like Voltron.
@@ -17,6 +18,12 @@ In essence, the build does the following:
 * Turns autologin *off* because I like simulating end user environments, ok?
 
 ## Requirements
+
+## NOTE: This project is currently incompatible with Virtualbox and Packer 0.12.1
+Due to a bug in the WinRM communicator in Packer 0.12.1, the WinRM communicator does not currently work with Virtualbox in Windows. You can read more about the issue, and the PR that will likely fix the issue [here](https://github.com/mitchellh/packer/pull/4321). 
+
+For now, you can grab a copy of Packer 0.12.0 [here](https://releases.hashicorp.com/packer/). 
+
 
 * **A copy of the [Windows 10 x64 Enterprise Trial](https://www.microsoft.com/en-us/evalcenter/evaluate-windows-10-enterprise)**
 * **Packer / Vagrant** - Duh. Tested with Packer 0.86 and Vagrant 1.7.4. 
