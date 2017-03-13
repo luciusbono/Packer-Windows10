@@ -9,9 +9,9 @@ In essence, the build does the following:
 
 * Use an existing, vanilla, Windows 10 x64 Enterprise trial ISO
 * Enable WinRM (in a slightly scary, Unauthenticated mode, for Packer/Vagrant to use)
-* Create a Vagrant user (as is the style)
+* Create a `vagrant` user (as is the style)
 * Grab all the Windows updates is can
-* Install VMWare Tools
+* Install VM guest additions
 * Turn off Hibernation
 * Turn on RDP
 * Set the network type for the virtual adapter to 'Private' and not bug you about it
