@@ -6,7 +6,7 @@ $isopath = "C:\Windows\Temp\windows.iso"
 # A separate variable is used for the parameters. There are cleaner ways of doing this. I chose the /qr MSI Installer flag because I personally hate silent installers
 # Even though our build is headless. 
 
-Write-Output "Mounting disk image at $ispoath"
+Write-Output "Mounting disk image at $isopath"
 Mount-DiskImage -ImagePath $isopath
 
 function vmware {
