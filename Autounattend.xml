@@ -86,6 +86,10 @@
             </AutoLogon>
             <OOBE>
                 <ProtectYourPC>1</ProtectYourPC>
+                <InputLocale>0409:00010409</InputLocale>
+                <SystemLocale>en-US</SystemLocale> 
+                <UILanguage>en-US</UILanguage> 
+                <UserLocale>en-US</UserLocale>
             </OOBE>
             <FirstLogonCommands>
                 <SynchronousCommand wcm:action="add">
