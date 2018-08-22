@@ -19,16 +19,10 @@ In essence, the build does the following:
 
 ## Requirements
 
-## NOTE: This project is currently incompatible with Virtualbox and Packer 0.12.1
-Due to a bug in the WinRM communicator in Packer 0.12.1, the WinRM communicator does not currently work with Virtualbox in Windows. You can read more about the issue, and the PR that will likely fix the issue [here](https://github.com/mitchellh/packer/pull/4321). 
-
-For now, you can grab a copy of Packer 0.12.0 [here](https://releases.hashicorp.com/packer/). 
-
-
 * **A copy of the [Windows 10 x64 Enterprise Trial](https://www.microsoft.com/en-us/evalcenter/evaluate-windows-10-enterprise)**
-* **Packer / Vagrant** - Duh. Tested with Packer 0.86 and Vagrant 1.7.4. 
+* **Packer / Vagrant** - Duh. Tested with Packer 1.2.5 and Vagrant 2.1.2. 
 * **VMWare Workstation or Fusion with The [Vagrant VMWare Provider](http://www.vagrantup.com/vmware)** or **[Virtualbox](https://www.virtualbox.org/)** 
-* **An RDP client** (built in on Windows, available [here](https://www.microsoft.com/en-us/download/details.aspx?id=18140) for Mac
+* **An RDP client** (built in on Windows, available [here](https://itunes.apple.com/us/app/microsoft-remote-desktop-10/id1295203466?mt=12) for Mac
 * **[Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)**
 
 This project works great with Virtualbox, so don't bother shelling out for VMWare Fusion without trying VirtualBox first. 
@@ -85,11 +79,16 @@ The other two variables, `iso_md5` and `iso_path`, are the path and the MD5 hash
 
 ## Other things to note
 
+### Update script
 The update grabbing script is a bit of a grey-box, as I basically just hijacked it (as well as lots of other code) from [this awesome project](https://github.com/joefitzgerald/packer-windows) - which I think is the defacto standard for Windows / Packer relations - but I wanted a leaner build. This project started as a frankenstein build, but is turning more into a ground-up rewrite of a lot of other projects' scripts and code. With the exception of the `update-windows.ps1` script, which I only modified very slightly, I will slowly go through all the code in this project and make sure I kill all the cruft.
 
+### If you have VMWare Fusion and Virtualbox installed
 If, for some reason, you have VMWare Fusion and the VMMware Vagrant plugin, but want to run this project in Virtualbox, you need to specify the provider in your `vagrant up` statement like so: `vagrant up --provider=virtualbox`
 
 Almost nobody will fall into the camp, but it's worth mentioning. Have fun!
+
+### Sym links are off by default for synced folders
+The vagrantfile template disables the `SharedFoldersEnableSymlinksCreate` option. I'd rather default to an untrusted guest since most of my workflows do not require symlinks. To change this, just add `config.vm.synced_folder ".", "/vagrant", SharedFoldersEnableSymlinksCreate: true` to your vagrantfile and do a `vagrant reload`.
 
 ## Troubleshooting
 
