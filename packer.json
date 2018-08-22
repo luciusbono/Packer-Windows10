@@ -53,6 +53,7 @@
     "winrm_insecure": true,
     "hard_drive_interface": "sata",
     "iso_interface": "sata",
+    "shutdown_command": "shutdown /s /t 0 /f /d p:4:1 /c \"Packer Shutdown\"",
     "guest_additions_mode": "upload",
     "guest_additions_path": "c:/Windows/Temp/windows.iso",
     "vboxmanage": [
