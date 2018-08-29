@@ -14,7 +14,7 @@ In essence, the build does the following:
 * Install VM guest additions
 * Turn off Hibernation
 * Turn on RDP
-* Set the network type for the virtual adapter to 'Private' and not bug you about it
+* Set the network type for the virtual adapter to 'Home' and not bug you about it
 * Turns autologin *off* because I like simulating end user environments, ok?
 
 ## Requirements
