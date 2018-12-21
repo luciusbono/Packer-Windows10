@@ -6,6 +6,39 @@
 
   "builders": [
   {    
+    "type": "parallels-iso",
+    "communicator": "winrm",
+    "disk_size": 61440,
+    "floppy_files": [
+      "Autounattend.xml",
+      "update-windows.ps1",
+      "configure-winrm.ps1"
+    ],
+    "guest_os_type": "win-10",
+    "iso_url": "{{user `iso_path`}}",
+    "iso_checksum_type": "md5",
+    "iso_checksum": "{{user `iso_md5`}}",    
+    "winrm_username": "vagrant",
+    "winrm_password": "vagrant",
+    "winrm_timeout": "6h",
+    "skip_compaction": false,
+    "shutdown_command":       "shutdown /s /t 5 /f /d p:4:1 /c \"Packer Shutdown\"",
+    "parallels_tools_flavor": "win",
+    "parallels_tools_mode":   "upload",
+    "parallels_tools_guest_path": "c:/Windows/Temp/windows.iso",
+    "prlctl": [
+      ["set", "{{.Name}}", "--startup-view",           "window"],
+      ["set", "{{.Name}}", "--memsize",                "2048"],
+      ["set", "{{.Name}}", "--cpus",                   "2"],
+      ["set", "{{.Name}}", "--smart-mount",            "off"],
+      ["set", "{{.Name}}", "--efi-boot",               "off"],
+      ["set", "{{.Name}}", "--shared-profile",         "off"],
+      ["set", "{{.Name}}", "--shared-cloud",           "off"],
+      ["set", "{{.Name}}", "--sh-app-guest-to-host",   "off"],
+      ["set", "{{.Name}}", "--sh-app-host-to-guest",   "off"]
+      ]
+    },
+  {    
     "type": "vmware-iso",
     "communicator": "winrm",
     "disk_size": 61440,

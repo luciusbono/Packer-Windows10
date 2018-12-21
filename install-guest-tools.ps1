@@ -9,6 +9,22 @@ $isopath = "C:\Windows\Temp\windows.iso"
 Write-Output "Mounting disk image at $isopath"
 Mount-DiskImage -ImagePath $isopath
 
+function parallels {
+$exe = ((Get-DiskImage -ImagePath $isopath | Get-Volume).Driveletter + ':\PTAgent.exe')
+$parameters = '/install_silent'
+
+$process = Start-Process $exe $parameters -Wait -PassThru
+if ($process.ExitCode -eq 0) {
+  Write-Host "Installation Successful"
+} elseif ($process.ExitCode -eq 3010) {
+  Write-Warning "Installation Successful, Please reboot"
+} else {
+  Write-Error "Installation Failed: Error $($process.ExitCode)"
+  Start-Sleep 2
+  exit $process.ExitCode
+}
+}
+
 function vmware {
 
 $exe = ((Get-DiskImage -ImagePath $isopath | Get-Volume).Driveletter + ':\setup.exe')
@@ -49,6 +65,9 @@ Start-Process $exe $parameters -Wait
 if ($ENV:PACKER_BUILDER_TYPE -eq "vmware-iso") {
     Write-Output "Installing VMWare Guest Tools"
     vmware
+} elseif ($env:PACKER_BUILDER_TYPE -match 'parallels') {
+    Write-Output "Installing Parallels Guest Tools"
+    parallels
 } else {
     Write-Output "Installing Virtualbox Guest Tools"
     virtualbox
