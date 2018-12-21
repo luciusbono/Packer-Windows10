@@ -21,7 +21,7 @@ In essence, the build does the following:
 
 * **A copy of the [Windows 10 x64 Enterprise Trial](https://www.microsoft.com/en-us/evalcenter/evaluate-windows-10-enterprise)**
 * **Packer / Vagrant** - Duh. Tested with Packer 1.2.5 and Vagrant 2.1.2. 
-* **VMWare Workstation or Fusion with The [Vagrant VMWare Provider](http://www.vagrantup.com/vmware)** or **[Virtualbox](https://www.virtualbox.org/)** 
+* **VMWare Workstation or Fusion with The [Vagrant VMWare Provider](http://www.vagrantup.com/vmware)**, **[Virtualbox](https://www.virtualbox.org/)** or **Parallels** (support added by @gildas)
 * **An RDP client** (built in on Windows, available [here](https://itunes.apple.com/us/app/microsoft-remote-desktop-10/id1295203466?mt=12) for Mac
 * **[Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)**
 
@@ -39,7 +39,7 @@ This guide will assume you zero knowledge of any or all of these systems.
 6. Make a working directory somewhere (OSX suggestion `mkdir ~/Packer_Projects/`) and `cd` to that directory (e.g. `cd ~/Packer_Projects/`).
 7. Clone this repo to your working directory: `git clone https://github.com/luciusbono/Packer-Windows10` (if you don't have `git` installed: [here are instructions](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
 8. Determine the **MD5 hash** of your iso: `md5 [path to iso]` in OSX `FCIV -md5 [path to iso]` in Windows (download it [here](https://support.microsoft.com/en-us/kb/841290#bookmark-4)) -- Linux people are smarter than me and likely can just calculate the md5 hash through ether-magic. 
-9. For **Virtualbox** run `packer build -only=virtualbox-iso -var 'iso_path=[path to iso]' -var 'iso_md5=[md5 of iso]' packer.json` for **VMWare Fusion/Workstation** run `packer build -only=vmware-iso -var 'iso_path=[path to iso]' -var 'iso_md5=[md5 of iso]' packer.json`
+9. For **Virtualbox** run `packer build -only=virtualbox-iso -var 'iso_path=[path to iso]' -var 'iso_md5=[md5 of iso]' packer.json` for **VMWare Fusion/Workstation** run `packer build -only=vmware-iso -var 'iso_path=[path to iso]' -var 'iso_md5=[md5 of iso]' packer.json`. For **Parallels**, run `packer build -only=parallels-iso -var 'iso_path=[path to iso]' -var 'iso_md5=[md5 of iso]' packer.json
 10. You will see build pause on `Waiting for WinRM to become available` - this is normal! If you actually access the console session on your VM you will see that it is getting updates from Microsoft's servers. This can easily take 30 minutes, so be patient. After the updates are all installed, Windows will turn it's WinRM service back on and Packer will continue with the build. 
 11. Run `vagrant box add --name [vagrant box name] [name of .box file]`. The name can be anything you want. For example, this command is valid for Virtualbox: `vagrant box add --name windows10 virtualbox-iso_windows-10.box`
 12. Make a working directory for your Vagrant VM (OSX suggestion `mkdir ~/Vagrant_Projects/windows10`) and `cd` to that directory (e.g. `cd ~/Vagrant_Projects/windows10`)
