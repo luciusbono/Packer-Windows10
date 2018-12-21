@@ -21,7 +21,7 @@ In essence, the build does the following:
 
 * **A copy of the [Windows 10 x64 Enterprise Trial](https://www.microsoft.com/en-us/evalcenter/evaluate-windows-10-enterprise)**
 * **Packer / Vagrant** - Duh. Tested with Packer 1.2.5 and Vagrant 2.1.2. 
-* **VMWare Workstation or Fusion with The [Vagrant VMWare Provider](http://www.vagrantup.com/vmware)**, **[Virtualbox](https://www.virtualbox.org/)** or **Parallels** (support added by @gildas)
+* **VMWare Workstation or Fusion with The [Vagrant VMWare Provider](http://www.vagrantup.com/vmware)**, **[Virtualbox](https://www.virtualbox.org/)** or **Parallels** (support added by gildas)
 * **An RDP client** (built in on Windows, available [here](https://itunes.apple.com/us/app/microsoft-remote-desktop-10/id1295203466?mt=12) for Mac
 * **[Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)**
 
