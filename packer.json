@@ -1,10 +1,32 @@
 {
   "variables": {
     "iso_path": "",
-    "iso_md5": ""
+    "iso_md5": "",
+    "switch_name": "Default Switch"
   },
 
   "builders": [
+  {    
+    "type": "hyperv-iso",
+    "communicator": "winrm",
+    "disk_size": 61440,
+    "floppy_files": [
+      "Autounattend.xml",
+      "update-windows.ps1",
+      "configure-winrm.ps1"
+    ],
+    "headless": true,
+    "iso_url": "{{user `iso_path`}}",
+    "iso_checksum_type": "md5",
+    "iso_checksum": "{{user `iso_md5`}}",    
+    "winrm_username": "vagrant",
+    "winrm_password": "vagrant",
+    "winrm_timeout": "6h",
+    "switch_name": "{{user `switch_name`}}",    
+    "skip_compaction": false,
+    "shutdown_command": "shutdown /s /t 5 /f /d p:4:1 /c \"Packer Shutdown\"",
+    "generation": "1"
+    },
   {    
     "type": "parallels-iso",
     "communicator": "winrm",
