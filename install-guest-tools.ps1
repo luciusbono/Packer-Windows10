@@ -1,5 +1,10 @@
 # Set the path of the VMWare Tools ISO - this is set in the Packer JSON file
 
+if ($ENV:PACKER_BUILDER_TYPE -eq "hyperv-iso") {
+  Write-Output "Nothing to do for Hyper-V"
+  exit 0
+}
+
 $isopath = "C:\Windows\Temp\windows.iso"
 
 # Mount the .iso, then build the path to the installer by getting the Driveletter attribute from Get-DiskImage piped into Get-Volume and adding a :\setup.exe
