@@ -59,19 +59,21 @@ The `packer.json` file requires two variables to validate. You can confirm these
 
 ```
 $ packer inspect packer.json 
-Optional variables and their defaults:
-
-  iso_md5  = 
-  iso_path = 
+iso_md5     =
+  iso_path    =
+  switch_name = Default Switch
 
 Builders:
 
+  hyperv-iso
+  parallels-iso
   virtualbox-iso
-  vmware-iso    
+  vmware-iso
 
 Provisioners:
 
   powershell
+  windows-restart
 ```
 
 Since there are two Builders, you also likely want to specify one or the other. 
