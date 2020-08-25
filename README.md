@@ -59,7 +59,7 @@ The `packer.json` file requires two variables to validate. You can confirm these
 
 ```
 $ packer inspect packer.json 
-iso_md5     =
+  iso_md5     =
   iso_path    =
   switch_name = Default Switch
 
