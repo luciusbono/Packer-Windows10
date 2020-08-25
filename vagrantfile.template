@@ -6,7 +6,10 @@ Vagrant.require_version ">= 1.6.2"
 Vagrant.configure("2") do |config|
     config.vm.box = "windows_10"
     config.vm.communicator = "winrm"
-    config.vm.synced_folder ".", "/vagrant", SharedFoldersEnableSymlinksCreate: false
+    config.vm.synced_folder ".", "/vagrant", 
+	    SharedFoldersEnableSymlinksCreate: false,
+	    smb_username: "vagrant",
+	    smb_password: "vagrant"
 
     config.vm.guest = :windows
 
