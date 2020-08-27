@@ -4,7 +4,6 @@ os:
   - windows
 
 script:
-  - powershell Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All 
   - choco feature enable -n allowGlobalConfirmation
-  - choco install packer
-  - packer build -only=hyperv-iso packer.json
+  - choco install packer,virtualbox
+  - packer build -only=virtualbox-iso packer.json
