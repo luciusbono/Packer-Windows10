@@ -91,7 +91,7 @@ The update grabbing script is a bit of a grey-box, as I basically just hijacked 
 ### If you have multiple hypervisors installed
 If, for some reason, you have multiple hypervisors, but want to run this project in Virtualbox, for example, you need to specify the provider in your `vagrant up` statement like so: `vagrant up --provider=virtualbox`
 
-Almost nobody will fall into the camp, but it's worth mentioning. Have fun!
+Almost nobody will fall into the camp, but it's worth mentioning. Have a blast!
 
 ### Sym links are off by default for synced folders
 The vagrantfile template disables the `SharedFoldersEnableSymlinksCreate` option. I'd rather default to an untrusted guest since most of my workflows do not require symlinks. To change this, just add `config.vm.synced_folder ".", "/vagrant", SharedFoldersEnableSymlinksCreate: true` to your vagrantfile and do a `vagrant reload`.
