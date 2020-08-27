@@ -1,0 +1,7 @@
+os: 
+  - windows
+
+script:
+  - choco feature enable -n allowGlobalConfirmation
+  - choco install packer
+  - packer build -only=hyperv-iso packer.json
