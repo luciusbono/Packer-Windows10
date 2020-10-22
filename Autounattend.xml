@@ -85,8 +85,8 @@
             </AutoLogon>
             <FirstLogonCommands>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>powershell -NoLogo -ExecutionPolicy RemoteSigned -File a:\update-windows.ps1</CommandLine>
-                    <Description>Update Windows, and when finished, run configure-winrm.ps1 to turn WinRM on so this par</Description>
+                    <CommandLine>powershell -NoLogo -ExecutionPolicy RemoteSigned -File a:\configure-winrm.ps1</CommandLine>
+                    <Description>Configure WinRM so magic happens.</Description>
                     <Order>1</Order>
                     <RequiresUserInput>false</RequiresUserInput>
                 </SynchronousCommand>

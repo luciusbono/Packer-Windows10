@@ -52,11 +52,6 @@ variable "cpus" {
   default = 2
 }
 
-
-
-# "timestamp" template function replacement
-locals { timestamp = regex_replace(timestamp(), "[- TZ:]", "") }
-
 # source blocks are generated from your builders; a source can be referenced in
 # build blocks. A build block runs provisioner and post-processors onto a
 # source. Read the documentation for source blocks here:
@@ -79,11 +74,11 @@ source "hyperv-iso" "hyperv" {
   winrm_username   = "${var.win_username}"
 }
 
-#could not parse template for following block: "template: generated:15:42: executing \"generated\" at <.Name>: can't evaluate field Name in type struct { HTTPIP string; HTTPPort string }"
-
 source "virtualbox-iso" "vbox" {
   communicator         = "winrm"
   disk_size            = "${var.disk_size}"
+  memory               = "${var.memory}"
+  cpus                 = "${var.cpus}"
   floppy_files         = ["Autounattend.xml", "update-windows.ps1", "configure-winrm.ps1"]
   guest_additions_mode = "upload"
   guest_additions_path = "c:/Windows/Temp/windows.iso"
@@ -94,7 +89,6 @@ source "virtualbox-iso" "vbox" {
   iso_checksum         = "${var.iso_checksum}"
   iso_url              = "${var.iso-url}"
   shutdown_command     = "shutdown /s /t 0 /f /d p:4:1 /c \"Packer Shutdown\""
-  vboxmanage           = [["modifyvm", "{{.Name}}", "--memory", "${var.memory}"], ["modifyvm", "{{.Name}}", "--cpus", "${var.cpus}"], ["modifyvm", "{{.Name}}", "--vram", "32"]]
   winrm_insecure       = true
   winrm_password       = "${var.win_password}"
   winrm_timeout        = "10h"
@@ -104,8 +98,8 @@ source "virtualbox-iso" "vbox" {
 source "vmware-iso" "vmware" {
   communicator        = "winrm"
   disk_size           = "${var.disk_size}"
-  memory           = "${var.memory}"
-  cpus             = "${var.cpus}"
+  memory              = "${var.memory}"
+  cpus                = "${var.cpus}"
   floppy_files        = ["Autounattend.xml", "update-windows.ps1", "configure-winrm.ps1"]
   guest_os_type       = "windows9-64"
   headless            = true
@@ -127,13 +121,35 @@ source "vmware-iso" "vmware" {
 build {
 
   sources = ["source.hyperv-iso.hyperv", "source.virtualbox-iso.vbox", "source.vmware-iso.vmware"]
+  
+  provisioner "powershell" {
+    script = "install-guest-tools.ps1"
+  }
 
   provisioner "powershell" {
-    scripts = ["install-guest-tools.ps1", "enable-rdp.ps1", "disable-hibernate.ps1", "disable-autologin.ps1", "enable-uac.ps1", "no-expiration.ps1"]
+    script = "enable-rdp.ps1"
   }
+
+  provisioner "powershell" {
+    script = "disable-hibernate.ps1"
+  }
+
+  provisioner "windows-update" {}
+
+  provisioner "powershell" {
+    script = "disable-autologin.ps1"
+  }
+
+  provisioner "powershell" {
+    script = "enable-uac.ps1"
+  }
+
+  provisioner "powershell" {
+    script = "no-expiration.ps1"
+  }
+
   provisioner "windows-restart" {}
 
-  #could not parse template for following block: "template: generated:3:28: executing \"generated\" at <.Provider>: can't evaluate field Provider in type struct { HTTPIP string; HTTPPort string }"
   post-processor "vagrant" {
     keep_input_artifact  = false
     output               = "{{.Provider}}_windows-10.box"
