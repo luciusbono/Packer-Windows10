@@ -79,7 +79,7 @@ source "virtualbox-iso" "vbox" {
   disk_size            = "${var.disk_size}"
   memory               = "${var.memory}"
   cpus                 = "${var.cpus}"
-  floppy_files         = ["Autounattend.xml", "update-windows.ps1", "configure-winrm.ps1"]
+  cd_files             = ["./Autounattend.xml", "update-windows.ps1", "configure-winrm.ps1"]
   guest_additions_mode = "upload"
   guest_additions_path = "c:/Windows/Temp/windows.iso"
   guest_os_type        = "Windows10_64"
@@ -133,8 +133,6 @@ build {
   provisioner "powershell" {
     script = "disable-hibernate.ps1"
   }
-
-  provisioner "windows-update" {}
 
   provisioner "powershell" {
     script = "disable-autologin.ps1"

@@ -46,7 +46,6 @@
                         <PartitionID>1</PartitionID>
                     </InstallTo>
                     <WillShowUI>OnError</WillShowUI>
-                    <InstallToAvailablePartition>false</InstallToAvailablePartition>
                 </OSImage>
             </ImageInstall>
             <UserData>
@@ -54,6 +53,7 @@
                 <FullName>Vagrant Administrator</FullName>
                 <Organization>Vagrant Inc.</Organization>
             </UserData>
+            <EnableNetwork>true</EnableNetwork>
         </component>
         <component name="Microsoft-Windows-International-Core-WinPE" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <SetupUILanguage>
@@ -85,8 +85,8 @@
             </AutoLogon>
             <FirstLogonCommands>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>powershell -NoLogo -ExecutionPolicy RemoteSigned -File a:\update-windows.ps1</CommandLine>
-                    <Description>Update Windows, and when finished, run configure-winrm.ps1 to turn WinRM on so this par</Description>
+                    <CommandLine>powershell -NoLogo -ExecutionPolicy RemoteSigned -File a:\configure-winrm.ps1</CommandLine>
+                    <Description>Configure WinRM so magic happens.</Description>
                     <Order>1</Order>
                     <RequiresUserInput>false</RequiresUserInput>
                 </SynchronousCommand>
@@ -116,5 +116,5 @@
             <EnableLUA>false</EnableLUA>
         </component>
     </settings>
-    <cpi:offlineImage cpi:source="catalog:c:/users/luciu/desktop/install_windows 10 enterprise evaluation.clg" xmlns:cpi="urn:schemas-microsoft-com:cpi" />
+    <cpi:offlineImage cpi:source="wim:c:/users/vagrant/desktop/install.wim#Windows 10 Enterprise Evaluation" xmlns:cpi="urn:schemas-microsoft-com:cpi" />
 </unattend>
