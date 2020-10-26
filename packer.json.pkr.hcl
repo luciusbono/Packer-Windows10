@@ -132,7 +132,6 @@ source "vmware-iso" "vmware" {
   shutdown_command    = "shutdown /s /t 5 /f /d p:4:1 /c \"Packer Shutdown\""
   tools_upload_flavor = "windows"
   tools_upload_path   = "c:/Windows/Temp/windows.iso"
-  
   winrm_password = "${var.win_password}"
   winrm_timeout  = "10h"
   winrm_username = "${var.win_username}"
