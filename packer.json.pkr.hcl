@@ -56,7 +56,7 @@ variable "cpus" {
 # build blocks. A build block runs provisioner and post-processors onto a
 # source. Read the documentation for source blocks here:
 # https://www.packer.io/docs/from-1.5/blocks/source
-source "hyperv-iso" "hyperv" {
+source "hyperv-iso" "gen1" {
   communicator     = "winrm"
   disk_size        = "${var.disk_size}"
   memory           = "${var.memory}"
@@ -74,12 +74,35 @@ source "hyperv-iso" "hyperv" {
   winrm_username   = "${var.win_username}"
 }
 
+source "hyperv-iso" "gen2" {
+  communicator     = "winrm"
+  disk_size        = "${var.disk_size}"
+  memory           = "${var.memory}"
+  cpus             = "${var.cpus}"
+  cd_files         = ["Autounattend.xml", "update-windows.ps1", "configure-winrm.ps1"]
+  cd_label         = "bootstrap"
+  generation       = "2"
+  headless         = true
+  iso_checksum     = "${var.iso_checksum}"
+  iso_url          = "${var.iso-url}"
+  shutdown_command = "shutdown /s /t 5 /f /d p:4:1 /c \"Packer Shutdown\""
+  skip_compaction  = false
+  switch_name      = "${var.switch_name}"
+  winrm_password   = "${var.win_password}"
+  winrm_timeout    = "10h"
+  winrm_username   = "${var.win_username}"
+  boot_command     = [
+    "<wait5><leftShiftOn><f10><leftShiftOff>",
+    "setup.exe /unattend:d:\\Autounattend-gen2.xml"
+  ]
+}
+
 source "virtualbox-iso" "vbox" {
   communicator         = "winrm"
   disk_size            = "${var.disk_size}"
   memory               = "${var.memory}"
   cpus                 = "${var.cpus}"
-  cd_files             = ["./Autounattend.xml", "update-windows.ps1", "configure-winrm.ps1"]
+  floppy_files             = ["./Autounattend.xml", "update-windows.ps1", "configure-winrm.ps1"]
   guest_additions_mode = "upload"
   guest_additions_path = "c:/Windows/Temp/windows.iso"
   guest_os_type        = "Windows10_64"
@@ -120,7 +143,7 @@ source "vmware-iso" "vmware" {
 # https://www.packer.io/docs/from-1.5/blocks/build
 build {
 
-  sources = ["source.hyperv-iso.hyperv", "source.virtualbox-iso.vbox", "source.vmware-iso.vmware"]
+  sources = ["source.hyperv-iso.gen1", "source.hyperv-iso.gen2", "source.virtualbox-iso.vbox", "source.vmware-iso.vmware"]
   
   provisioner "powershell" {
     script = "install-guest-tools.ps1"
