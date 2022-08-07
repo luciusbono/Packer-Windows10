@@ -1,10 +1,4 @@
 {
-  "variables": {
-    "iso_path": "",
-    "iso_md5": "",
-    "switch_name": "Default Switch"
-  },
-
   "builders": [
   {    
     "type": "hyperv-iso",
@@ -17,8 +11,7 @@
     ],
     "headless": true,
     "iso_url": "{{user `iso_path`}}",
-    "iso_checksum_type": "md5",
-    "iso_checksum": "{{user `iso_md5`}}",    
+    "iso_checksum": "{{user `iso_checksum`}}",
     "winrm_username": "vagrant",
     "winrm_password": "vagrant",
     "winrm_timeout": "6h",
@@ -38,8 +31,7 @@
     ],
     "guest_os_type": "win-10",
     "iso_url": "{{user `iso_path`}}",
-    "iso_checksum_type": "md5",
-    "iso_checksum": "{{user `iso_md5`}}",    
+    "iso_checksum": "{{user `iso_checksum`}}",
     "winrm_username": "vagrant",
     "winrm_password": "vagrant",
     "winrm_timeout": "6h",
@@ -72,8 +64,7 @@
     "guest_os_type": "windows9-64",
     "headless": true,
     "iso_url": "{{user `iso_path`}}",
-    "iso_checksum_type": "md5",
-    "iso_checksum": "{{user `iso_md5`}}",    
+    "iso_checksum": "{{user `iso_checksum`}}",
     "winrm_username": "vagrant",
     "winrm_password": "vagrant",
     "winrm_timeout": "6h",
@@ -100,8 +91,7 @@
     "guest_os_type": "Windows10_64",
     "headless": true,
     "iso_url": "{{user `iso_path`}}",
-    "iso_checksum_type": "md5",
-    "iso_checksum": "{{user `iso_md5`}}",    
+    "iso_checksum": "{{user `iso_checksum`}}",
     "winrm_username": "vagrant",
     "winrm_password": "vagrant",
     "winrm_timeout": "6h",
@@ -161,4 +151,3 @@
     }
   ]
 }
-
